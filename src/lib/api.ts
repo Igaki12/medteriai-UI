@@ -98,7 +98,7 @@ export async function startLegacyPipeline(params: StartLegacyPipelineParams) {
   await sleep(randomBetween(300, 900));
 
   const jobId = createJobId();
-  const durationMs = randomBetween(10_000, 120_000);
+  const durationMs = randomBetween(5_000, 30_000);
   const job: DummyJob = {
     jobId,
     createdAt: Date.now(),
