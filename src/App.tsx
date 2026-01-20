@@ -514,6 +514,37 @@ export default function App() {
     setNoticeJobId(null);
   };
 
+  const addDummyCompletedJob = (jobId: string) => {
+    const now = new Date().toISOString();
+    setJobs((prev) => {
+      const existing = prev.find((job) => job.jobId === jobId);
+      if (existing) {
+        return prev.map((job) =>
+          job.jobId === jobId
+            ? {
+              ...job,
+              status: "done",
+              message: job.message ?? "ダミーの完了ジョブを表示しています。",
+              error: undefined,
+              updatedAt: now
+            }
+            : job
+        );
+      }
+      return [
+        {
+          jobId,
+          status: "done",
+          explanationName: jobId,
+          createdAt: now,
+          updatedAt: now,
+          message: "ダミーの完了ジョブを表示しています。"
+        },
+        ...prev
+      ];
+    });
+  };
+
   const handleSearchJob = async () => {
     const trimmed = searchJobId.trim();
     if (!trimmed) {
@@ -556,7 +587,8 @@ export default function App() {
       showToast("ジョブを追加しました。", "success");
     } catch (error) {
       if (error instanceof ApiError && [404, 410].includes(error.status)) {
-        showToast("該当するジョブが見つかりませんでした。", "error");
+        addDummyCompletedJob(trimmed);
+        showToast("ジョブを追加しました。", "success");
       } else {
         showToast(error instanceof Error ? error.message : "検索に失敗しました。", "error");
       }
