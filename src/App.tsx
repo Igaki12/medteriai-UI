@@ -1327,13 +1327,11 @@ export default function App() {
       </Container>
 
       <Box as="footer" mt={{ base: 10, md: 14 }} pb={{ base: 6, md: 10 }}>
-        <Container maxW="6xl" ml={4}>
           <VStack spacing={4} justify="center" align="center">
             <Text fontSize="sm" color="brand.muted">
               © 2026 Medteria igatatsu｜ All rights reserved.
             </Text>
           </VStack>
-        </Container>
       </Box>
 
       <Modal isOpen={isRetryOpen} onClose={closeRetryModal} size="xl">
